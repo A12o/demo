@@ -1,0 +1,20 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Hello, 世界")
+}
+func handlerApi(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "[\n  {\n    name: \"API\"\n  }\n]")
+}
+
+func main() {
+	http.HandleFunc("/", handler)
+	http.HandleFunc("/api", handlerApi)
+	log.Fatal(http.ListenAndServe(":8888", nil))
+}
